@@ -1,44 +1,37 @@
-package com.example.ulultrip.ui.fragments
+package com.example.ulultrip.ui.fragments.main
 
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.example.ulultrip.R
 import com.example.ulultrip.core.ui.BaseFragment
 import com.example.ulultrip.databinding.FragmentMianBinding
-import com.example.ulultrip.ui.fragments.adapter.CategoryAdapter
-import com.geektech.youtubeapi.core.network.result.Status
+import com.example.ulultrip.ui.fragments.main.adapter.CategoryAdapter
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MianFragment : BaseFragment<FragmentMianBinding, MainViewModel>() {
+class MainFragment : BaseFragment<FragmentMianBinding, MainViewModel>() {
     override val viewModel: MainViewModel by viewModel()
     private val adapter by lazy { CategoryAdapter() }
-
     override fun getViewBinding(): FragmentMianBinding = FragmentMianBinding.inflate(layoutInflater)
 
     override fun observeData() {
         super.observeData()
         setupRecyclerView()
         loadData()
-//        viewModel.getTourCategories()
-//        viewModel.liveCategories.observe(this) {
-//            when (it.status) {
-//                Status.SUCCESS -> Log.e("aga", "onCreate: " + it.data)
-//
-//                Status.ERROR -> Log.e("aga", "LOADING: ")
-//
-//                Status.LOADING -> Log.e("aga", "LOADING: ")
-//            }
-//        }
+
+        binding.btnToursFragment.setOnClickListener { findNavController().navigate(R.id.toursFragment) }
     }
 
+
     private fun setupRecyclerView() {
-binding.rvCategory.adapter = adapter
+        binding.rvCategory.adapter = adapter
     }
 
     private fun loadData() {
         lifecycleScope.launch {
             viewModel.listData.collect {
-                Log.e("aga", "loadData: " + it, )
+                Log.e("aga", "loadData: " + it)
                 adapter.submitData(it)
             }
         }

@@ -8,6 +8,6 @@ val koinModules = listOf(
     viewModules,
     repoModules,
     testDataSource,
-            networkModules
+    networkModules
 )
 

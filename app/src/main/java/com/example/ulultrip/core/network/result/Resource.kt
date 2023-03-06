@@ -1,6 +1,4 @@
-package com.example.rickandmortytest.core.network.result
-
-import com.geektech.youtubeapi.core.network.result.Status
+package com.geektech.youtubeapi.core.network.result
 
 data class Resource<T>(val status: Status, val data: T?, val message: String?, val code: Int?) {
     companion object {

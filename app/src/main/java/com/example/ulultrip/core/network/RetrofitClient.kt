@@ -37,4 +37,4 @@ fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
 fun provideApi(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
 
 
-const val BASE_URL ="http://164.92.190.147:88/"
+const val BASE_URL ="http://164.92.190.147:8087/"

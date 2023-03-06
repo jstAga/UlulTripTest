@@ -1,10 +1,9 @@
 package com.example.ulultrip.core.network
 
-import com.example.rickandmortytest.core.network.result.Resource
+import com.geektech.youtubeapi.core.network.result.Resource
 import retrofit2.Response
 
 abstract class BaseDataSource {
-
     protected suspend fun <T> getResult(call: suspend () -> Response<T>): Resource<T> {
         try {
             val response = call()

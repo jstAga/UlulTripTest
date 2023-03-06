@@ -7,7 +7,17 @@
 
     <fragment
         android:id="@+id/mianFragment"
-        android:name="com.example.ulultrip.ui.fragments.MianFragment"
+        android:name="com.example.ulultrip.ui.fragments.main.MainFragment"
         android:label="fragment_mian"
         tools:layout="@layout/fragment_mian" />
+    <fragment
+        android:id="@+id/toursFragment"
+        android:name="com.example.ulultrip.ui.fragments.tours.ToursFragment"
+        android:label="fragment_tours"
+        tools:layout="@layout/fragment_tours" />
+    <fragment
+        android:id="@+id/detailTourFragment"
+        android:name="com.example.ulultrip.DetailTourFragment"
+        android:label="fragment_detail_tour"
+        tools:layout="@layout/fragment_detail_tour" />
 </navigation>

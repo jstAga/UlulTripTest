@@ -1,8 +1,10 @@
 package com.example.ulultrip.di
 
-import com.example.ulultrip.ui.fragments.repository.TestTepository
+import com.example.ulultrip.ui.fragments.main.repository.MainRepository
+import com.example.ulultrip.ui.fragments.tours.repository.ToursRepository
 import org.koin.dsl.module
 
 val repoModules = module {
-    single { TestTepository(get()) }
+    single { MainRepository(get()) }
+    single { ToursRepository(get()) }
 }
