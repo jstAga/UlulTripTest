@@ -17,7 +17,7 @@ class ToursViewModel(private val apiService: ApiService, private val repository:
     private val _getToursState = MutableStateFlow<UIState<PagingData<TourModel>>>(UIState.Empty())
     val getToursState = _getToursState.asStateFlow()
 
-     fun getTours2(filter: FilterModel) {
+     fun getTours(filter: FilterModel) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getTours(filter).collect() {
                 _getToursState.value = UIState.Success(it)

@@ -11,21 +11,7 @@ import com.example.ulultrip.databinding.ItemTourBinding
 class ToursAdapter(val onItemClick: (TourModel) -> Unit) :
     PagingDataAdapter<TourModel, ToursAdapter.TourModelPagingViewHolder>(diffCallback) {
     override fun onBindViewHolder(holder: TourModelPagingViewHolder, position: Int) {
-        val currChar = getItem(position)
-
-        holder.binding.apply {
-
-            holder.itemView.apply {
-
-                tvTitle.text = currChar?.title
-                tvPrice.text = currChar?.price.toString()
-                tvGuide.text = currChar?.guide?.get_initials
-                tvDesc.text = currChar?.description
-                tvComplexity.text = currChar?.complexity
-                tvDuration.text = currChar?.duration
-                tvId.text = currChar?.id.toString()
-            }
-        }
+        getItem(position)?.let { holder.bind(it) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TourModelPagingViewHolder {
@@ -38,8 +24,20 @@ class ToursAdapter(val onItemClick: (TourModel) -> Unit) :
     }
 
     inner class TourModelPagingViewHolder(
-        val binding: ItemTourBinding,
-    ) : RecyclerView.ViewHolder(binding.root)
+        private val binding: ItemTourBinding,
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(model: TourModel) {
+            with(binding) {
+                tvTitle.text = model.title
+                tvPrice.text = model.price.toString()
+                tvGuide.text = model.guide.get_initials
+                tvDesc.text = model.description
+                tvComplexity.text = model.complexity
+                tvDuration.text = model.duration
+                tvId.text = model.id.toString()
+            }
+        }
+    }
 
     companion object {
         val diffCallback = object : DiffUtil.ItemCallback<TourModel>() {

@@ -6,11 +6,7 @@ import com.example.ulultrip.data.model.TourModel
 import com.example.ulultrip.data.model.ToursResponse
 import com.example.ulultrip.data.remote.ApiService
 
-class ToursPagingSource(private val apiService: ApiService) :
-    BasePagingSource<ToursResponse, TourModel>({ apiService.getTours(it) })
-
-
-class ToursPagingSource2(private val apiService: ApiService, filter: FilterModel) :
+class ToursPagingSource(private val apiService: ApiService, filter: FilterModel) :
     BasePagingSource<ToursResponse, TourModel>({
         apiService.getTours(
             it,

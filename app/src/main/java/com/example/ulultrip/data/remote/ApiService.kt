@@ -18,7 +18,7 @@ interface ApiService {
     @GET("/tour/src/v1/tours")
     suspend fun getTours(
         @Query("offset") offset : Int = 0,
-        @Query("limit") limit : Int = 5,
+        @Query("limit") limit : Int = 10,
         @Query("category") category : String = "",
         @Query("region") region : String = "",
         @Query("guide") guide : String = "",

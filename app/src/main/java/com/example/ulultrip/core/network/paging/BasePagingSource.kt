@@ -23,12 +23,17 @@ abstract class BasePagingSource<ResponseModel : DataMapper<ResultModel>, ResultM
             val responseData = mutableListOf<ResultModel>()
             val data = response.body()?.responseToModel() ?: emptyList()
 
+
+            val nextPageNumber = if (data.isEmpty()) null else currentItem + 1
+            val prevPageNumber = if (currentItem > 1) currentItem - 1 else null
             responseData.addAll(data)
 
             LoadResult.Page(
                 data = responseData,
-                prevKey = if (currentItem == 0) null else -1,
-                nextKey = currentItem.plus(1)
+//                prevKey = if (currentItem == 0) null else -1,
+//                nextKey = currentItem.plus(1)
+            prevKey = null,
+                nextKey = nextPageNumber
             )
         } catch (e: Exception) {
             LoadResult.Error(e)

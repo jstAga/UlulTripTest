@@ -1,7 +1,6 @@
 package com.example.ulultrip.ui.fragments.tours
 
 import android.util.Log
-import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -34,14 +33,13 @@ class ToursFragment : BaseFragment<FragmentToursBinding, ToursViewModel>() {
 
             viewLifecycleOwner.lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.getTours2(filter)
+                    viewModel.getTours(filter)
                     adapter.refresh()
                 }
             }
 
         }
     }
-    //7 - 12, 14, 20, 29, 31 ,32, 33
 
     override fun observeData() {
         super.observeData()
@@ -52,7 +50,7 @@ class ToursFragment : BaseFragment<FragmentToursBinding, ToursViewModel>() {
     private fun loadData() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getTours2(filter)
+                viewModel.getTours(filter)
             }
         }
     }
@@ -60,7 +58,7 @@ class ToursFragment : BaseFragment<FragmentToursBinding, ToursViewModel>() {
     private fun initSubscribers() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getToursState.collectLatest { state ->
+                viewModel.getToursState.collect() { state ->
                     when (state) {
                         is UIState.Empty -> {}
                         is UIState.Error -> {}

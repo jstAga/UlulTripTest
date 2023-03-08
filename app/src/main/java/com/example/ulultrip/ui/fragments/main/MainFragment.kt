@@ -1,7 +1,9 @@
 package com.example.ulultrip.ui.fragments.main
 
 import android.util.Log
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.ulultrip.R
 import com.example.ulultrip.core.ui.BaseFragment
@@ -15,24 +17,25 @@ class MainFragment : BaseFragment<FragmentMianBinding, MainViewModel>() {
     private val adapter by lazy { CategoryAdapter() }
     override fun getViewBinding(): FragmentMianBinding = FragmentMianBinding.inflate(layoutInflater)
 
+    override fun initViews() {
+        super.initViews()
+        binding.rvCategory.adapter = adapter
+    }
     override fun observeData() {
         super.observeData()
-        setupRecyclerView()
         loadData()
 
         binding.btnToursFragment.setOnClickListener { findNavController().navigate(R.id.toursFragment) }
     }
 
 
-    private fun setupRecyclerView() {
-        binding.rvCategory.adapter = adapter
-    }
-
     private fun loadData() {
-        lifecycleScope.launch {
-            viewModel.listData.collect {
-                Log.e("aga", "loadData: " + it)
-                adapter.submitData(it)
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.listData.collect {
+                    Log.e("aga", "loadData: " + it)
+                    adapter.submitData(it)
+                }
             }
         }
     }
